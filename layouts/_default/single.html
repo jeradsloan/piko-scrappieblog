@@ -37,8 +37,9 @@
         "disableAnchoredHeadings") }} {{- partial "anchored_headings.html"
         .Content -}} {{- else }}{{ .Content }}{{ end }}
       </div>
-
-      {{ partial "social-share.html" . }}
+      {{- if not (.Param "shareStripOff") }}
+        {{ partial "social-share.html" . }}
+      {{ end }}
     </div>
     
     {{- if (.Param "ShowRelated") }} 
