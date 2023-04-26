@@ -26,15 +26,16 @@
       </img
       >{{end}}
 
-<!-- new stuff jerad -->
+<!-- jerad resources image create webp  -->
       {{- if (.Param "quoteImage") }}
         {{ $image := resources.Get .Params.quoteImage }}
         {{ $image := $image.Fit "600x400 webp q50" }}
         {{ with $image }}
-          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}">
+          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}">
         {{ end }}
       {{ end }}
 <!-- end new stuff -->
+
 
       <div class="post">
         {{- if not (.Param "shareStripOff") }}    
@@ -54,8 +55,18 @@
       {{- end }} {{- end }}
     </div>
 
-
-
+    {{- if (.Param "asin") }}
+    <aside>
+      <article>
+        <!-- <h3>See Also</h3> -->
+          <hgroup>
+            <!-- <h4><i>title</i></h4> -->
+            {{ partial "asin.html" . }}
+          </hgroup>
+        </a>
+      </article>
+    </aside>
+    {{ end }}
     
     {{- if (.Param "ShowRelated") }} 
     <aside>
