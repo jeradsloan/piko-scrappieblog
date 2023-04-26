@@ -6,11 +6,6 @@
     {{- partial "post_meta.html" . -}}
     <p>{{ .Description }}</p>
   </hgroup>
-  {{- if .Params.tags }} {{- range ($.GetTerms "tags") }}
-  <a href="{{ .Permalink }}">
-    <kbd>{{ .LinkTitle }}</kbd>
-  </a>
-  {{- end }} {{- end }}
 
   <div class="grid grid-main">
     <div>
@@ -30,17 +25,37 @@
       >
       </img
       >{{end}}
-    
+
+<!-- new stuff jerad -->
+      {{- if (.Param "quoteImage") }}
+        {{ $image := resources.Get .Params.quoteImage }}
+        {{ $image := $image.Fit "600x400 webp q50" }}
+        {{ with $image }}
+          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}">
+        {{ end }}
+      {{ end }}
+<!-- end new stuff -->
+
       <div class="post">
-        
-        {{ partial "social-share.html" . }} {{- if not (.Param
-        "disableAnchoredHeadings") }} {{- partial "anchored_headings.html"
+        {{- if not (.Param "shareStripOff") }}    
+          {{ partial "social-share.html" . }}
+        {{ end }}      
+        {{- if not (.Param "disableAnchoredHeadings") }} {{- partial "anchored_headings.html"
         .Content -}} {{- else }}{{ .Content }}{{ end }}
       </div>
       {{- if not (.Param "shareStripOff") }}
         {{ partial "social-share.html" . }}
       {{ end }}
+      <!-- tags -->
+      {{- if .Params.tags }} {{- range ($.GetTerms "tags") }}
+      <a href="{{ .Permalink }}">
+        <kbd>{{ .LinkTitle }}</kbd>
+      </a>
+      {{- end }} {{- end }}
     </div>
+
+
+
     
     {{- if (.Param "ShowRelated") }} 
     <aside>
