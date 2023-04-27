@@ -2,7 +2,7 @@
 <div class="container">
   <hgroup>
     {{ partial "breadcrumbs.html" . }}
-    <h1>{{ .Title }}</h1>
+    <h1>&quot;{{ .Title }}&quot;</h1>
     {{- partial "post_meta.html" . -}}
     <p>{{ .Description }}</p>
   </hgroup>
@@ -79,7 +79,7 @@
 
         <a href="{{ .RelPermalink }}">
           <hgroup>
-            <h4><i>{{ .Title }}</i></h4>
+            <h4>&quot;<i>{{ .Title }}</i>&quot;</h4>
             <p>{{- partial "post_meta.html" . -}}</p>
           </hgroup>
         </a>
