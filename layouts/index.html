@@ -38,7 +38,7 @@ url('{{.Site.Params.homepage.heroBackgroundImage}}'); ">
       {{ $paginator := .Paginate (where site.RegularPages  "Type" "in" site.Params.mainSections | first
       3) }} {{ range $paginator.Pages }}
       <a href="{{ .RelPermalink }}">
-        <article class="text-center">
+        <article class="">
         {{if .Params.Cover.Image}}
           <figure>
             <img
@@ -66,7 +66,8 @@ url('{{.Site.Params.homepage.heroBackgroundImage}}'); ">
               .Truncated }}...{{ end }}
             </p>
           </hgroup>
-          <small> {{- partial "post_meta.html" . -}} </small>
+          <!-- AUTHOR under title -->
+          {{- partial "post_meta.html" . -}} 
         </article>
       </a>
       {{ end }}

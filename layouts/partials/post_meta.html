@@ -1,9 +1,15 @@
+<!-- POST_META.HTML -->
+<!-- 
+    this calls author.html partial
+ -->
 {{- $scratch := newScratch }}
 
 {{- if (.Param "ShowReadingTime") -}}
 {{- $scratch.Add "meta" (slice (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime))) }}
 {{- end }}
 
+<!-- add  STYLING for AUTHOR-->
+<span class="quote-author">
 {{- with (partial "author.html" .) }}
 {{- $scratch.Add "meta" (slice .) }}
 {{- end }}
@@ -11,3 +17,4 @@
 {{- with ($scratch.Get "meta") }}
 {{- delimit . "&nbsp;·&nbsp;" -}}
 {{- end -}}
+</span>

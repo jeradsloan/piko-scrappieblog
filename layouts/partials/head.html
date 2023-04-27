@@ -36,6 +36,26 @@
 <link rel="stylesheet" href="{{ .link | absURL }} " />
 {{ end }} 
 
+<!-- jerad additional CSS tweaks -->
+<style>
+/* 
+  h3.gridpost:before {
+    content: url('/path/to/image');
+  }
+ */
+  .quote-author {
+    font-size: 1.2em;
+    color: gray;
+    font-weight: bold;
+  }
+  /* add EM DASH before quote author */
+  .quote-author:before {
+    content: "\2014"
+  }
+  
+</style>
+<!-- end additional CSS -->
+
 {{- /* Search */}}
 {{- if (eq .Layout `search`) -}}
 <link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
