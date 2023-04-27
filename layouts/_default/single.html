@@ -30,9 +30,7 @@
       {{- if (.Param "quoteImage") }}
         {{ $image := resources.Get .Params.quoteImage }}
         {{ $image := $image.Fit "600x400 webp q50" }}
-        {{ with $image }}
-          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}">
-        {{ end }}
+          <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Params.author }} {{ .Title }}">
       {{ end }}
 <!-- end new stuff -->
 
@@ -55,6 +53,7 @@
       {{- end }} {{- end }}
     </div>
 
+<!-- jerad ASIN WIP -->
     {{- if (.Param "asin") }}
     <aside>
       <article>
@@ -62,12 +61,20 @@
           <hgroup>
             <!-- <h4><i>title</i></h4> -->
             {{ partial "asin.html" . }}
+            
+            <!-- scrappie artwork - merch block -->
+            {{- if (.Param "scrappieArt") }}
+              {{ $image := resources.Get .Params.scrappieArt }}
+              {{ $image := $image.Fit "250x250 webp q40" }}
+                <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Params.author }} {{ .Title }}">
+            {{ end }}
+            <!-- end scrappie merch block -->
           </hgroup>
-        </a>
       </article>
     </aside>
     {{ end }}
-    
+<!-- end jerad ASIN WIP -->
+
     {{- if (.Param "ShowRelated") }} 
     <aside>
       <article>
