@@ -1,0 +1,4 @@
+{{ $image := resources.Get .Params.scrappieArt }}
+{{ $image := $image.Resize "300x webp q40" }}
+<img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"
+    alt="{{ .Params.author }} {{ .Title }}">

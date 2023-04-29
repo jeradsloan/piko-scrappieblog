@@ -30,7 +30,7 @@
 <!-- jerad resources image create webp  -->
       {{- if (.Param "quoteImage") }}
         {{ $image := resources.Get .Params.quoteImage }}
-        {{ $image := $image.Fit "600x400 webp q50" }}
+        {{ $image := $image.Resize "600x webp q50" }}
           <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Params.author }} {{ .Title }}">
       {{ end }}
 <!-- end new stuff -->
@@ -54,20 +54,19 @@
       {{- end }} {{- end }}
     </div>
 
-<!-- jerad ASIN WIP -->
-    {{- if (.Param "asin") }}
+<!-- jerad ASIN and AI Artwork sidebar WIP -->
+    {{- if or (.Param "asin") (.Param "scrappieArt") }}
     <aside>
       <article>
         <!-- <h3>See Also</h3> -->
           <hgroup>
             <!-- <h4><i>title</i></h4> -->
-            {{ partial "asin.html" . }}
-            
+            {{- if (.Param "asin") }}
+              {{ partial "asin.html" . }}
+            {{ end }}
             <!-- scrappie artwork - merch block -->
             {{- if (.Param "scrappieArt") }}
-              {{ $image := resources.Get .Params.scrappieArt }}
-              {{ $image := $image.Fit "250x250 webp q40" }}
-                <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Params.author }} {{ .Title }}">
+              {{ partial "originalartwork.html" . }}
             {{ end }}
             <!-- end scrappie merch block -->
           </hgroup>
