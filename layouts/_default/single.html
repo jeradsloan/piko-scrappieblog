@@ -61,14 +61,14 @@
         <!-- <h3>See Also</h3> -->
           <hgroup>
             <!-- <h4><i>title</i></h4> -->
-            {{- if (.Param "asin") }}
-              {{ partial "asin.html" . }}
-            {{ end }}
             <!-- scrappie artwork - merch block -->
             {{- if (.Param "scrappieArt") }}
               {{ partial "originalartwork.html" . }}
             {{ end }}
             <!-- end scrappie merch block -->
+            {{- if (.Param "asin") }}
+              {{ partial "asin.html" . }}
+            {{ end }}
           </hgroup>
       </article>
     </aside>
