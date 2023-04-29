@@ -36,7 +36,7 @@ url('{{.Site.Params.homepage.heroBackgroundImage}}'); ">
   <div class="container">
     <div class="grid grid-post">
       {{ $paginator := .Paginate (where site.RegularPages  "Type" "in" site.Params.mainSections | first
-      3) }} {{ range $paginator.Pages }}
+      12) }} {{ range $paginator.Pages }}
       <a href="{{ .RelPermalink }}">
         <article class="">
         {{if .Params.Cover.Image}}
@@ -53,9 +53,9 @@ url('{{.Site.Params.homepage.heroBackgroundImage}}'); ">
             <!-- jerad resources image create webp  -->
             {{- if (.Param "quoteImage") }}
             {{ $image := resources.Get .Params.quoteImage }}
-            {{ $image := $image.Resize "300x webp q30" }}
+            {{ $image := $image.Resize "600x webp q30" }}
               {{ with $image }}
-                <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}">
+                <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}" layout="responsive">
               {{ end }}
             {{ end }}
             <!-- end new stuff -->
