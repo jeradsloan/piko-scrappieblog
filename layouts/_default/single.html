@@ -1,4 +1,19 @@
 {{ define "main" }}
+<!-- jerad set default tags  -->
+{{ if isset .Params "baseURL" }}
+    {{ range .Site.Taxonomies.tags }}
+    {{ end }}
+
+{{ end }}
+<!-- jerad - add quoteAuthor to tags if not present -->
+    {{ range (.GetTerms "tags") }}
+        <!-- this is debug 
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+        -->
+    {{ end }}
+
+<!-- end set default tags -->
+
 <div class="container">
   <hgroup>
     {{ partial "breadcrumbs.html" . }}
@@ -26,11 +41,15 @@
       >
       </img
       >{{end}}
-
 <!-- jerad resources image create webp  -->
-      {{- if (.Param "quoteImage") }}
-        {{ $image := resources.Get .Params.quoteImage }}
-        {{ $image := $image.Resize "600x webp q50" }}
+      {{ if and (.Param "scrappieArt") (.Param "quoteImage") }}
+        {{- .Scratch.Set "blogimagehero" .Params.quoteImage}}
+      {{ else if (.Param "scrappieArt") }}
+        {{- .Scratch.Set "blogimagehero" .Params.scrappieArt}}
+      {{ end }}
+      {{- $image := resources.Get ($.Scratch.Get "blogimagehero") }}
+      {{ with $image }}
+        {{- $image := $image.Resize "600x webp q50" }}
           <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Params.author }} {{ .Title }}">
       {{ end }}
 <!-- end new stuff -->

@@ -1,0 +1,14 @@
+<!-- jerad // resources image create webp  -->
+{{ if and (.Param "scrappieArt") }}
+    {{- .Scratch.Set "blogimagehero" .Params.scrappieArt}}
+{{ else if (.Param "quoteImage") }}
+    {{- .Scratch.Set "blogimagehero" .Params.quoteImage}}
+{{ end }}
+
+{{- $image := resources.Get ($.Scratch.Get "blogimagehero") }}
+
+{{- $image := $image.Resize "600x webp q30" }}
+    {{ with $image }}
+    <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}">
+    {{ end }}
+<!-- end new stuff -->

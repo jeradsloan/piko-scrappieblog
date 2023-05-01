@@ -32,17 +32,8 @@ url('{{.Params.Image}}');">
           ></img>
         </figure>
         {{end}}
-
         <hgroup>
-            <!-- jerad resources image create webp  -->
-            {{- if (.Param "quoteImage") }}
-            {{ $image := resources.Get .Params.quoteImage }}
-            {{ $image := $image.Resize "600x webp q30" }}
-              {{ with $image }}
-                <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}">
-              {{ end }}
-            {{ end }}
-            <!-- end new stuff -->
+          {{- partial "post_image.html" . -}}
           <h3>&quot;{{ .Title }}&quot;</h3>
           <hr />
           <p>
