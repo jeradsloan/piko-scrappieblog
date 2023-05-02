@@ -50,6 +50,7 @@
       {{- $image := resources.Get ($.Scratch.Get "blogimagehero") }}
       {{ with $image }}
         {{- $image := $image.Resize "600x webp q50" }}
+        {{- $image := $image | images.Filter (images.Gamma .95) (images.Contrast -3) (images.Hue -10) -}}
           <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ .Params.author }} {{ .Title }}">
       {{ end }}
 <!-- end new stuff -->
