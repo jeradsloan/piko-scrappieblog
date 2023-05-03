@@ -10,7 +10,7 @@
 {{ if ($.Scratch.Get "blogimagehero")}}
     {{- $image := resources.Get ($.Scratch.Get "blogimagehero") -}}
     {{- $image := $image.Resize "600x webp q25" -}}
-    {{- $image := $image | images.Filter (images.Gamma .95) (images.Contrast -3) (images.Hue -10) (images.GaussianBlur 1) -}}
+    {{- $image := $image | images.Filter (images.Gamma .95) (images.Contrast -3) (images.Hue -10) (images.GaussianBlur 0.5) -}}
         {{- with $image }}
         <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ .Params.Title }}">
         {{- end }}

@@ -15,7 +15,9 @@
   <channel>
     <title>{{ if eq  .Title  site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne  .Title  site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ site.Title }}</description>
+    <description>
+      Recent content {{ if ne  .Title  site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ site.Title }}
+    </description>
     {{- with site.Params.images }}
     <image>
       <title>{{ site.Title }}</title>
@@ -41,16 +43,41 @@
       {{ with site.Author.email }}<author>{{.}}{{ with site.Author.name }} ({{.}}){{end}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
       <description>
+
+        {{ if (.Params.scrappieArt) }}
+            {{- .Scratch.Set "blogimagehero" .Params.scrappieArt }}
+        {{ else if (.Params.quoteImage) }}
+            {{- .Scratch.Set "blogimagehero" .Params.quoteImage }}
+        {{ else }}
+            <!-- something else for error handling ? -->
+        {{ end }}
+
+        {{ if (.Scratch.Get "blogimagehero")}}
+            {{- $image := resources.Get (.Scratch.Get "blogimagehero") -}}
+            {{- $image := $image.Resize "600x webp q35" -}}
+            {{- $image := $image | images.Filter (images.Gamma .95) (images.Contrast -3) (images.Hue -10) (images.GaussianBlur 0.5) -}}
+            {{ with $image }}
+              {{ printf "<![CDATA[<img src=\"%s\" width=\"%d\" height=\"%d\"/>]]>" $image.Permalink $image.Width $image.Height | safeHTML }}
+            {{ end }}
+        {{ end }}
+
+         {{ printf "&ldquo;" }}{{ .Title }}{{ printf "&rdquo;<br>" }}
+         —{{ .Params.Author }} {{ printf "<br>" }}
+
+
         {{ $img := (.Resources.ByType "image").GetMatch "*featured*" }}
         {{ with $img }}
-        {{ $img := .Resize "640x" }}
-        {{ printf "<![CDATA[<img src=\"%s\" width=\"%d\" height=\"%d\"/>]]>" $img.Permalink $img.Width $img.Height | safeHTML }}
+          {{ $img := .Resize "640x" }}
+          {{ printf "<![CDATA[<img src=\"%s\" width=\"%d\" height=\"%d\"/>]]>" $img.Permalink $img.Width $img.Height | safeHTML }}
         {{ end }}
         {{ .Content | html }}
             
-      {{ with .Description | html }}{{ . }}{{ else }}{{ .Summary | html }}{{ end -}}</description>
+        {{ with .Description | html }}{{ . }}{{ else }}{{ .Summary | html }}{{ end -}}
+      </description>
       {{- if site.Params.ShowFullTextinRSS }}
-      <content:encoded>{{ (printf "<![CDATA[%s]]>" .Content) | safeHTML }}</content:encoded>
+      <content:encoded>       
+        {{ (printf "<![CDATA[%s]]>" .Content) | safeHTML }}
+      </content:encoded>
       {{- end }}
     </item>
     {{- end }}

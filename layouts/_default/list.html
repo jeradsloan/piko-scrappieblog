@@ -34,7 +34,7 @@ url('{{.Params.Image}}');">
         {{end}}
         <hgroup>
           {{- partial "post_image.html" . -}}
-          <h3>&quot;{{ .Title }}&quot;</h3>
+          <h3>&ldquo;{{ .Title }}&rdquo;</h3>
           <hr />
           <p>
             {{ .Description | plainify | htmlUnescape | truncate 100 }}{{ if
