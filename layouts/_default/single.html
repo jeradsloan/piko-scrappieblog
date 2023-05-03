@@ -90,7 +90,7 @@
               {{ partial "asin.html" . }}
             {{ end }}
 
-            <!-- jerad quoteWithImage sidebar WIP -->
+            <!-- jerad 'Quote Card' idea -- quoteWithImage sidebar WIP -->
             {{- if (.Param "quoteWithImage") }}
               {{- $image := resources.Get .Params.quoteWithImage }}
               {{ with $image }}
