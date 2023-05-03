@@ -74,7 +74,7 @@
       {{- end }} {{- end }}
     </div>
 
-<!-- jerad ASIN and AI Artwork sidebar WIP -->
+<!-- jerad SIDEBAR WIP -- ASIN and AI Artwork and QuoteCard quoteWithImage -->
     {{- if or (.Param "asin") (.Param "scrappieArt") }}
     <aside>
       <article>
@@ -94,13 +94,12 @@
             {{- if (.Param "quoteWithImage") }}
               {{- $image := resources.Get .Params.quoteWithImage }}
               {{ with $image }}
-              {{- $image := $image.Resize "600x webp q50" }}
-              {{- $image := $image | images.Filter (images.Gamma .95) (images.Contrast -3) (images.Hue -10) -}}
+              {{- $image := $image.Resize "450x webp q85 icon MitchellNetravali" }}
               <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"
                 alt="{{ .Params.author }} {{ .Title }}">
               {{ end }}
             {{ end }}
-            <!-- end jerad ASIN WIP -->
+            <!-- end jerad quoteWithImage WIP -->
 
           </hgroup>
       </article>
