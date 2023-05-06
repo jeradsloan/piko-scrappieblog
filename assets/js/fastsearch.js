@@ -23,7 +23,8 @@ window.onload = function () {
                             'title',
                             'permalink',
                             'summary',
-                            'content'
+                            'content',
+                            'author'
                         ]
                     };
                     if (params.fuseOpts) {
@@ -83,7 +84,7 @@ sInput.onkeyup = function (e) {
             let resultSet = ''; // our results bucket
 
             for (let item in results) {
-                resultSet += `<a href="${results[item].item.permalink}" aria-label="${results[item].item.title}"><div class="search-result"><hgroup><h5>${results[item].item.title}</h5><h6>${results[item].item.summary}</h6></hgroup></div></a>`
+                resultSet += `<a href="${results[item].item.permalink}" aria-label="${results[item].item.title}"><div class="search-result"><hgroup><h5>${results[item].item.title}</h5><h6>${results[item].item.summary}  ${results[item].item.author}</h6></hgroup></div></a>`
             }
 
             resList.innerHTML = resultSet;
