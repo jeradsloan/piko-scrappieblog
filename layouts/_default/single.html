@@ -93,7 +93,8 @@
               {{ range first 1 .Params.merchlink }}
               <a href="{{ . }}"><img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"
                 alt=""></a>
-                  <span class="text-center"><a href="{{ . }}">get limited edition merch!</a></span>
+                <!-- IMAGE LINK ICON -- need to stylzie it to not be black -->
+                <span class="text-center"><a href="{{ . }}">get limited edition merch!<img height="15" width="15" color="white" src="/icons/fas-up-right-from-square-solid.svg"></a></span>
               {{ end }}
             {{- else if (.Param "scrappieArt") }}
               {{ partial "originalartwork.html" . }}
