@@ -79,13 +79,28 @@
     <aside>
       <article>
         <!-- <h3>See Also</h3> -->
-          <hgroup>
+          <hgroup class="text-center">
             <!-- <h4><i>title</i></h4> -->
             <!-- scrappie artwork - merch block -->
-            {{- if (.Param "scrappieArt") }}
+
+            <!-- end scrappie merch block -->
+
+            <!-- IF merchlink and scrappieART then print the merchlink -->
+            <!-- LIST snippet with LOOP and range first n -->
+            {{- if (and (.Param "merchlink") (.Param "scrappieArt")) }}
+              {{ $image := resources.Get .Params.scrappieArt }}
+              {{ $image := $image.Resize "300x webp q40" }}
+              {{ range first 1 .Params.merchlink }}
+              <a href="{{ . }}"><img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"
+                alt=""></a>
+                  <span class="text-center"><a href="{{ . }}">get limited edition merch!</a></span>
+              {{ end }}
+            {{- else if (.Param "scrappieArt") }}
               {{ partial "originalartwork.html" . }}
             {{ end }}
-            <!-- end scrappie merch block -->
+            <!-- end merchlink -->
+
+            <!-- AMASON ASIN links -->
             {{- if (.Param "asin") }}
               {{ partial "asin.html" . }}
             {{ end }}
