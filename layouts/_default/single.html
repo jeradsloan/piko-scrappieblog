@@ -46,6 +46,8 @@
         {{- .Scratch.Set "blogimagehero" .Params.quoteImage}}
       {{ else if (.Param "scrappieArt") }}
         {{- .Scratch.Set "blogimagehero" .Params.scrappieArt}}
+      {{ else if (.Param "quoteImage") }}
+        {{- .Scratch.Set "blogimagehero" .Params.quoteImage}}
       {{ end }}
       {{- $image := resources.Get ($.Scratch.Get "blogimagehero") }}
       {{ with $image }}
